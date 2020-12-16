@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 	private bool LHeld;
 	private bool DHeld;
 
+	//set all varibles
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
 		health = 3;
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
 		DefaultAll();
 	}
 
+	//detect input
 	void Update() {
 		if (Input.GetKey(KeyCode.Space) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) || Input.GetKey(KeyCode.Space))
 			up = true;
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
 			up	= false;
 	}
 
+	//apply forces to player rigidbody bases on input
 	void FixedUpdate() {
 
 		if (Input.GetKey(KeyCode.D)) {
@@ -65,10 +68,12 @@ public class Player : MonoBehaviour
 		if (up == true)
 			rb.AddForce(transform.up * thrust);
 
+		//clamp rigidbody velocity so player has a maximum speed
 		rb.velocity = Vector2.ClampMagnitude(rb.velocity, 10);
 		ManageHealth();
 	}
 
+	//check what the player health is and disable health objects based on health.
 	void ManageHealth() {
 		if (health == 3)
 			return;
@@ -80,6 +85,7 @@ public class Player : MonoBehaviour
 			PlayerLoose();
 	}
 
+	//set all health bars to default
 	void DefaultAll() {
 		hp1.SetActive(true);
 		hp2.SetActive(true);
@@ -87,6 +93,7 @@ public class Player : MonoBehaviour
 		youlost.SetActive(false);
 	}
 
+	//detect damage
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.tag == "Asteroid" && health > 0 && !invulnerable)
 			health -= 1;
@@ -99,6 +106,7 @@ public class Player : MonoBehaviour
  	  	invulnerable = false;
   }
 
+  //player lost
   void PlayerLoose() {
   	hp1.SetActive(false);
 		youlost.SetActive(true);

@@ -49,7 +49,7 @@ public class Turret : MonoBehaviour
 		}
 	}
 
-	//request an item from the object pool and fire it
+	//request an item from the object pool and add a force to fire it
 	void Fire() {
 		GameObject Asteroid = ObjectPooler.SharedInstance.PoolRequest();
 		if (Asteroid != null) {
